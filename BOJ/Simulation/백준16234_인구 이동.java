@@ -1,95 +1,105 @@
+//백준 16234 인구이동
+import java.io.*;
 import java.util.*;
- 
+
+class Pair{
+	int x;
+	int y;
+	
+	Pair(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+}
+
 public class Main {
-    
-    static int n, l, r;
-    static int[][] map;
-    static boolean[][] visited;
-    static int[] dx = {0, 1, 0, -1};
-    static int[] dy = {1, 0, -1, 0};
-    static ArrayList<Pair> list; 
- 
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);    
- 
-        n = scan.nextInt();
-        l = scan.nextInt();
-        r = scan.nextInt();
-        
-        map= new int[n][n];
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                map[i][j] = scan.nextInt();
-            }
-        }
-        
-        System.out.println(move());
-    }
-    
-    public static int move() { 
-        int result = 0;
-        while(true) {
-            boolean isMove = false;
-            visited = new boolean[n][n]; 
-            for(int i = 0; i < n; i++) {
-                for(int j = 0; j < n; j++) {
-                    if(!visited[i][j]) {
-                        int sum = bfs(i, j); 
-                        if(list.size() > 1) {
-                            changePopulation(sum); 
-                            isMove = true;
-                        }    
-                    }
-                }
-            }
-            if(!isMove) return result;
-            result++;
-        }
-    }
-    
-    public static int bfs(int x, int y) {
-        Queue<Pair> q = new LinkedList<>();
-        list = new ArrayList<>();
-        
-        q.add(new Pair(x, y));
-        list.add(new Pair(x, y));
-        visited[x][y] = true;
-        
-        int sum = map[x][y];
-        while(!q.isEmpty()) {
-            Pair p = q.poll();
-            
-            for(int i = 0; i < 4; i++) {
-                int nx = p.x + dx[i];
-                int ny = p.y + dy[i];
-                if(nx >= 0 && ny >= 0 && nx < n && ny < n && !visited[nx][ny]) {
-                    int diff = Math.abs(map[p.x][p.y] - map[nx][ny]);
-                    if(l <= diff && diff <= r) {
-                        q.add(new Pair(nx, ny));
-                        list.add(new Pair(nx, ny));
-                        sum += map[nx][ny];
-                        visited[nx][ny] = true;
-                    }        
-                }
-            }
-        }
-        return sum;
-    }
-    
-    public static void changePopulation(int sum) {
-        int avg = sum / list.size();
-        for(Pair n : list) {
-            map[n.x][n.y] = avg;
-        }
-    }
-    
-    public static class Pair {
-        int x; 
-        int y;
-        
-        public Pair(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
+
+	static final int dx[] = {0,0,1,-1};
+	static final int dy[] = {1,-1,0,0};
+	static ArrayList<Pair> unionXY = new ArrayList<>();
+	static boolean visit[][];
+	static int map[][];
+	static int n,l,r,cnt;
+	static boolean isMove = false;
+	
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		n = Integer.parseInt(st.nextToken());
+		l = Integer.parseInt(st.nextToken());
+		r = Integer.parseInt(st.nextToken());
+		map = new int[n][n];
+		
+		for(int i=0; i<n; i++) {
+			st = new StringTokenizer(br.readLine());
+			for(int j=0; j<n; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		move();
+		
+		System.out.println(cnt);
+		
+	}
+	static void move() {
+		
+		while(true) {
+			isMove = false;
+			visit = new boolean[n][n]; //새로 bfs 시작할때마다 초기화
+			
+			for(int i=0; i<n; i++) {
+				for(int j=0;j<n; j++) {
+					if(!visit[i][j]){
+						 bfs(i,j);    //방문하지 않은상태면 bfs 시작
+					}				
+				}
+			}
+												
+			if(!isMove) break;
+			else cnt++;
+		}
+			
+	}
+	
+	static void bfs(int x, int y) {
+		Queue<Pair> q = new LinkedList<>();
+		q.add(new Pair(x,y));
+		visit[x][y] = true;
+		unionXY.add(new Pair(x,y));
+		
+		while(!q.isEmpty()) {
+			Pair p = q.poll();
+			x = p.x;
+			y = p.y;
+			
+			for(int k=0; k<4; k++) {
+				int nx = x + dx[k];
+				int ny = y + dy[k];
+				
+				if(0<=nx && nx<n && 0<=ny && ny<n) {
+					if(!visit[nx][ny] && l <= Math.abs(map[x][y] - map[nx][ny]) &&  Math.abs(map[x][y] - map[nx][ny]) <= r) {
+						isMove = true;
+						visit[nx][ny] = true;
+						unionXY.add(new Pair(nx,ny));
+						q.add(new Pair(nx,ny));
+					}
+				}	
+			}				
+		}	
+		
+		//bfs 가 끝나면 인구이동 결과 맵에 집어넣기
+		int sum = 0;
+		for(int i=0; i<unionXY.size(); i++) {
+			Pair p = unionXY.get(i);
+			 sum += map[p.x][p.y];
+		}
+		
+		for(int i=0; i<unionXY.size(); i++) {
+			Pair p = unionXY.get(i);
+			map[p.x][p.y] = sum / unionXY.size();
+		}
+		unionXY.removeAll(unionXY);
+	}
 }
