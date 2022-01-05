@@ -3,7 +3,7 @@ import java.util.*;
 
 class Node{
 	int x,y,dist,boom;
-	Pair(int x, int y, int dist, int boom){
+	Node(int x, int y, int dist, int boom){
 		this.x = x;
 		this.y = y;
 		this.dist = dist;
@@ -36,11 +36,11 @@ public class Main {
 			}
 		}
 		
-		ans = Integer.MAX_VALUE;
+		ans = -1;
 	
 		bfs();
 	
-		System.out.println(ans == Integer.MAX_VALUE ? -1 : ans);
+		System.out.println(ans);
 	}
 	static void bfs() {
 		Queue<Node> q = new LinkedList<>();

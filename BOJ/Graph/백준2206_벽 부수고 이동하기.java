@@ -2,7 +2,7 @@
 import java.io.*;
 import java.util.*;
 
-class Pair{
+class Node{
 	int x;
 	int y;
 	int dist;
@@ -15,7 +15,7 @@ class Pair{
 	}
 }
 
-public class Pair{
+public class Node{
 
 	static final int dx[] = {0,0,1,-1};
 	static final int dy[] = {1,-1,0,0};
@@ -29,7 +29,7 @@ public class Pair{
 		m = Integer.parseInt(st.nextToken());
 		map = new int[n][m];
 		visit = new boolean[n][m][2];
-		ans = Integer.MAX_VALUE;
+		ans = -1;
 
 		for(int i=0; i<n; i++) {
 			String s = br.readLine();
@@ -39,17 +39,17 @@ public class Pair{
 		}
 		bfs();
 		
-		System.out.println(ans==Integer.MAX_VALUE ? -1 : ans);
+		System.out.println(ans);
 			
 	}
 	
 	static void bfs() {
-		Queue<Pair> q = new LinkedList<>();
-		q.add(new Pair(0,0,1,0));
+		Queue<Node> q = new LinkedList<>();
+		q.add(new Node(0,0,1,0));
 		visit[0][0][0] = true;
 		
 		while(!q.isEmpty()) {
-			Pair now = q.poll();
+			Node now = q.poll();
 			int x = now.x;
 			int y = now.y;
 			
@@ -65,11 +65,11 @@ public class Pair{
 				
 				if(map[nx][ny] == 0 && !visit[nx][ny][now.boom]) {
 					visit[nx][ny][now.boom] = true;
-					q.add(new Pair(nx,ny,now.dist+1,now.boom));
+					q.add(new Node(nx,ny,now.dist+1,now.boom));
 				}else {
 					if(now.boom == 0 && !visit[nx][ny][now.boom+1]) {
 						visit[nx][ny][now.boom+1] = true;
-						q.add(new Pair(nx,ny,now.dist+1,now.boom+1));
+						q.add(new Node(nx,ny,now.dist+1,now.boom+1));
 					}
 				}
 				
