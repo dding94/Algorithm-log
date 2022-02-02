@@ -22,16 +22,11 @@ public class PS0202_1449 {
 
         int cnt = 0;
         int last = a[0];
-        for (int i = 1; i < n; i++) {
-            if (a[i] - last == l) {
-                cnt++;
-                last = a[i];
-
-            } else if (a[i] - last > l - 1) {
+        for(int i = 0; i < n; i++){
+            if (a[i] - last >= l) {
                 cnt++;
                 last = a[i];
             }
-
         }
 
         System.out.println(cnt+1);
