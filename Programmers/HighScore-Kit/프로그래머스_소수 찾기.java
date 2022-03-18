@@ -1,49 +1,54 @@
 //프로그래머스 소수찾기
-import java.io.*;
-import java.util.*;
+import java.util.HashSet;
 
 class Solution {
-	static ArrayList<Integer> arr = new ArrayList<>();
-	static boolean[] check = new boolean[10];
-    
-    public int solution(String numbers) {
-        int answer = 0;
-        String temp = "";
-		for(int i=0; i<numbers.length(); i++) {
-			dfs(numbers,temp,i+1);
-		}
-        for(int i=0; i<arr.size(); i++){
-            if(prime(arr.get(i))) answer++;
-        }
-        return answer;
-    }
+	static boolean[] check;
+	static HashSet<Integer> hs = new HashSet();
 
-	static void dfs(String str, String temp, int m) {
-		if(temp.length() == m) {
-			int num = Integer.parseInt(temp);
-			if(!arr.contains(num)) arr.add(num);
-			return;	
-		}else {
-			for(int i=0; i<str.length(); i++) {
-				if(!check[i]) {
-					check[i] = true;
-					temp += str.charAt(i);
-					dfs(str, temp, m);
-					check[i] = false;
-					temp = temp.substring(0, temp.length()-1);
-				}
+	public int solution(String numbers) {
+		int answer = 0;
+		check = new boolean[numbers.length()];
+
+		for (int i = 0; i < numbers.length(); i++) {
+			dfs(0, i + 1, "", numbers);
+		}
+
+		for (Integer number : hs) {
+			if (checkPrime(number)) {
+				answer++;
+			}
+		}
+		System.out.println(answer);
+		return answer;
+	}
+
+	static void dfs(int index,int depth, String result, String numbers) {
+		if (index == depth) {
+			if (result.charAt(0) != '0') {
+				hs.add(Integer.valueOf(result));
+			}
+			return;
+		}
+
+		for (int i = 0; i < numbers.length(); i++) {
+			if (!check[i]) {
+				check[i] = true;
+				dfs(index + 1, depth, result + numbers.charAt(i), numbers);
+				check[i] = false;
 			}
 		}
 	}
 
-	static boolean prime(int n) {
-		if(n<2) return false;
-		
-		for(int i=2; i*i<=n; i++) {
-			if(n % i == 0) return false;
+	static boolean checkPrime(int number) {
+		if (number < 2) {
+			return false;
 		}
-		
+
+		for (int i = 2; i * i <= number; i++) {
+			if (number % i == 0) {
+				return false;
+			}
+		}
 		return true;
 	}
-
 }
