@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e729235-fcbf-436b-aed7-c6134ec9829e" name="Changes" comment="" />
+    <list default="true" id="5e729235-fcbf-436b-aed7-c6134ec9829e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programmers/HighScore-Kit/프로그래머스_여행경로.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programmers/HighScore-Kit/프로그래머스_여행경로.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,6 +36,8 @@
       <option name="presentableId" value="Default" />
       <updated>1645767474400</updated>
       <workItem from="1645767476200" duration="59000" />
+      <workItem from="1649415059756" duration="3000" />
+      <workItem from="1649415088344" duration="7000" />
     </task>
     <servers />
   </component>

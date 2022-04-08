@@ -3,31 +3,30 @@ import java.util.Collections;
 
 class Solution {
 
-    static boolean[] ticketUsed;
-    static ArrayList<String> pathList = new ArrayList<>();
+    static ArrayList<String> list = new ArrayList<>();
+    static boolean useTickets[];
 
     public String[] solution(String[][] tickets) {
-        String[] answer = {};
-        ticketUsed = new boolean[tickets.length];
+        useTickets = new boolean[tickets.length];
 
-        dfs("ICN", "ICN", 0, tickets);
+        dfs(0, "ICN", "ICN", tickets);
 
-        Collections.sort(pathList);
+        Collections.sort(list);
 
-        return pathList.get(0).split(" ");
+        return list.get(0).split(" ");
     }
 
-    static void dfs(String now, String path, int count, String[][] tickets) {
-        if (count == tickets.length) {ㄴㅋ
-            pathList.add(path);
+    static void dfs(int depth, String now, String path, String[][] tickets){
+        if (depth == tickets.length) {
+            list.add(path);
             return;
         }
 
-        for (int i = 0; i < tickets.length; i++) {
-            if (!ticketUsed[i] && tickets[i][0].equals(now)) {
-                ticketUsed[i] = true;
-                dfs(tickets[i][1], path + " " + tickets[i][1], count + 1, tickets);
-                ticketUsed[i] = false;
+        for (int i = 0; i < useTickets.length; i++) {
+            if (!useTickets[i] && now.equals(tickets[i][0])) {
+                useTickets[i] = true;
+                dfs(depth+1, tickets[i][1], path + " " +tickets[i][1], tickets);
+                useTickets[i] = false;
             }
         }
     }
