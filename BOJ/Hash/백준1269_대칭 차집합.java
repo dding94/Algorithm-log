@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class PS0428_1269 {
-    
+
     public static void main(String[] args) throws IOException {
         // TODO Auto-generated method stub
 
@@ -38,4 +38,4 @@ public class PS0428_1269 {
 
     }
 
-}
+} 
