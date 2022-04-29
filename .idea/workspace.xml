@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e729235-fcbf-436b-aed7-c6134ec9829e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="5e729235-fcbf-436b-aed7-c6134ec9829e" name="Changes" comment="gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BOJ/Hash/백준1269_대칭 차집합.java" beforeDir="false" afterPath="$PROJECT_DIR$/BOJ/Hash/백준1269_대칭 차집합.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +37,7 @@
       <workItem from="1649415059756" duration="3000" />
       <workItem from="1649415088344" duration="7000" />
       <workItem from="1651158126860" duration="26000" />
+      <workItem from="1651242454591" duration="2000" />
     </task>
     <servers />
   </component>
