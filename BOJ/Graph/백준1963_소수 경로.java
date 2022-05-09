@@ -1,12 +1,9 @@
-package 백준.PS5월;
-
 import java.io.*;
 import java.util.*;
 
-public class PS0509_1963 {
+public class Main {
 
     static boolean[] primeNum = new boolean[10000];
-    static boolean[] visit = new boolean[10000];
     static int ans = Integer.MAX_VALUE;
 
     public static void main(String[] args) throws IOException {
@@ -24,9 +21,7 @@ public class PS0509_1963 {
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
 
-
             bfs(a, b);
-
 
             sb.append(ans == Integer.MAX_VALUE ? "Impossible" : ans).append('\n');
         }
@@ -36,6 +31,7 @@ public class PS0509_1963 {
 
     private static void bfs(int start, int end){
         Queue<Node> q = new LinkedList<>();
+        boolean[] visit = new boolean[10000];
         q.add(new Node(start, 0));
         visit[start] = true;
 
