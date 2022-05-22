@@ -3,7 +3,7 @@ package 백준.PS5월;
 import java.io.*;
 import java.util.*;
 
-public class PS0522_17085 {
+public class PS0522_1174 {
     static int[] num = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
     static ArrayList<Long> list = new ArrayList<>();
 
