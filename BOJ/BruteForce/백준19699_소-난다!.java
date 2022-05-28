@@ -5,7 +5,7 @@ import java.util.*;
 
 public class PS0528_19699 {
     static int n, m;
-    static ArrayList<Integer> list = new ArrayList<>();
+    static HashSet<Integer> hs = new HashSet<>();
     static boolean check[];
     static int cowWeight[];
     public static void main(String[] args) throws IOException {
@@ -25,12 +25,14 @@ public class PS0528_19699 {
 
         dfs(0, 0, 0);
 
+        ArrayList<Integer> list = new ArrayList<>(hs);
+        Collections.sort(list);
+
         if (list.size() == 0) {
             System.out.println(-1);
         } else {
-            Collections.sort(list);
-            for (int i : list) {
-                System.out.println(i + " ");
+            for (Integer i : list) {
+                System.out.print(i + " ");
             }
         }
     }
@@ -38,9 +40,7 @@ public class PS0528_19699 {
     private static void dfs(int depth, int sum, int start) {
         if (depth == m) {
             if (isPrime(sum)) {
-                if (!list.contains(sum)) {
-                    list.add(sum);
-                }
+                hs.add(sum);
             }
             return;
         }
