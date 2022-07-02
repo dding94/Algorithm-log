@@ -28,7 +28,7 @@ public class PS0702_3980 {
             }
 
             dfs(0, 0);
-            sb.append(max);
+            sb.append(max).append('\n');
         }
 
         System.out.println(sb);
@@ -42,10 +42,10 @@ public class PS0702_3980 {
 
 
         for (int i = 0; i < n; i++) {
-            if (!visit[depth] && map[depth][i] != 0) {
-                visit[depth] = true;
+            if (!visit[i] && map[depth][i] != 0) {
+                visit[i] = true;
                 dfs(depth + 1, sum + map[depth][i]);
-                visit[depth] = false;
+                visit[i] = false;
             }
         }
     }
