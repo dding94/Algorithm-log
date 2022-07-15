@@ -44,9 +44,7 @@ public class PS0715_22953 {
             }
         }
 
-        if (!flag) {
-            dfs(depth + 1);
-        }
+        dfs(depth + 1);
     }
 
     private static void binarySearch() {
@@ -68,7 +66,6 @@ public class PS0715_22953 {
                 ans = Math.min(ans, mid);
             }
         }
-
     }
 
 }
