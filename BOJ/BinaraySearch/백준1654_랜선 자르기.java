@@ -1,51 +1,39 @@
-//랜선 자르기
-package 백준.PS2월;
+package 백준.PS7월;
 
 import java.io.*;
 import java.util.*;
 
-public class PS0222_1654 {
-    static int[] lan;
+public class PS0721_1654 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
 
+        StringTokenizer st = new StringTokenizer(br.readLine());
         int k = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
-
-        lan = new int[k];
+        int lan[] = new int[k];
+        long left = 1;
+        long right = -1;
 
         for (int i = 0; i < k; i++) {
             lan[i] = Integer.parseInt(br.readLine());
+            right = Math.max(right, lan[i]);
         }
 
-        Arrays.sort(lan);
+        while (left <= right) {
+            long mid = (left + right) / 2;
 
-        //최소 길이
-        int start = 1;
-        //최대 길이
-        int end = lan[k - 1];
+            int lanCount = 0;
+            for (int i = 0; i < k; i++) {
+                lanCount += (lan[i] / mid);
+            }
 
-        while (start < end) {
-            int mid = (start + end) / 2;
-
-            if (lanCount(mid) < n) {
-                end = mid;
-            }else{
-                start = mid + 1;
+            if (lanCount >= n) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
             }
         }
 
-        System.out.println(end - 1);
-    }
-
-    private static int lanCount(int mid) {
-        int count = 0;
-
-        for (int i : lan) {
-            count += (i / mid);
-        }
-
-        return count;
+        System.out.println(right);
     }
 }
