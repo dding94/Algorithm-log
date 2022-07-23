@@ -1,33 +1,34 @@
-package 백준.PS7월;
+package 백준.PS6월;
 
 import java.io.*;
-import java.util.*;
+import java.util.StringTokenizer;
 
-public class PS0721_1654 {
+public class PS0627_13702 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int k = Integer.parseInt(st.nextToken());
-        int n = Integer.parseInt(st.nextToken());
-        int lan[] = new int[k];
-        long left = 1;
-        long right = -1;
 
-        for (int i = 0; i < k; i++) {
-            lan[i] = Integer.parseInt(br.readLine());
-            right = Math.max(right, lan[i]);
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+
+        int[] makgeolli = new int[n];
+        long right = 0;
+        for (int i = 0; i < n; i++) {
+            makgeolli[i] = Integer.parseInt(br.readLine());
+            right = Math.max(right, makgeolli[i]);
         }
+
+        long left = 1;
 
         while (left <= right) {
             long mid = (left + right) / 2;
+            int sum = 0;
 
-            int lanCount = 0;
-            for (int i = 0; i < k; i++) {
-                lanCount += (lan[i] / mid);
+            for (int i = 0; i < n; i++) {
+                sum += makgeolli[i] / mid;
             }
 
-            if (lanCount >= n) {
+            if (sum >= k) {
                 left = mid + 1;
             } else {
                 right = mid - 1;
@@ -35,5 +36,6 @@ public class PS0721_1654 {
         }
 
         System.out.println(right);
+
     }
 }
