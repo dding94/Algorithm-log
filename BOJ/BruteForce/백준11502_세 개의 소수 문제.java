@@ -1,72 +1,52 @@
-import java.util.Scanner;
+package 백준.PS8월;
 
-class Main
-{
-	static boolean[] isPrime=new boolean[1001]; // false이면 소수, true이면 합성수
-	static int[] primeList=new int[1001]; // 찾은 소수 모두 저장
-	static int primeCnt; // primeList의 index
+import java.io.*;
 
-	public static void primeSieve(int n) // 소수 구하기
-	{
-		// isPrime 배열 구하기
-		for (int i = 2; i*i <= n; i++)
-			for (int j = i * i; j <= n; j += i)
-				if (!isPrime[j])
-					isPrime[j] = true;
+public class PS0804_11502 {
 
-		// primeList 배열 구하기
-		for (int i = 2; i <= n; i++)
-			if (!isPrime[i])
-				primeList[primeCnt++] = i;
-	}
+	static boolean[] prime = new boolean[1001];
+	static StringBuilder sb = new StringBuilder();
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-	public static void main(String[] args) {
+		int t = Integer.parseInt(br.readLine());
 
-		Scanner input=new Scanner(System.in);
-		int T=input.nextInt();
+		setPrime();
+		while (t-- > 0) {
+			int n = Integer.parseInt(br.readLine());
 
-		int[] testCase=new int[T];
-		int max = 0;
-		for (int i = 0; i < T; i++)
-		{
-			testCase[i]=input.nextInt();
-			if (testCase[i] > max)
-				max = testCase[i];
+			if (!makePrime(n)) {
+				sb.append(0 + "\n");
+			}
 		}
 
-		input.close();
+		System.out.println(sb);
+	}
 
-		// primeList 배열은 가장 큰 수까지만 구하면 됨
-		primeSieve(max);
-
-		for (int i = 0; i < T; i++) {
-			int cnt=0;
-
-			// 2 + 2 + 홀수인 소수
-			if (!isPrime[testCase[i] - 4])
-			{
-				cnt++;
-				System.out.println(2+" "+ 2+" "+ (testCase[i] - 4));
-				continue;
-			}
-
-			// 홀수인 소수 3개로 이루어진 경우
-			outerloop:
-			for (int j = 1; j < primeCnt; j++) {
-				for (int k = 1; k < primeCnt; k++) {
-					for (int u = 1; u < primeCnt; u++) {
-						if (primeList[j]+primeList[k]+primeList[u]==testCase[i])
-						{
-							cnt++;
-							System.out.println(primeList[j]+" "+ primeList[k]+" "+primeList[u]);
-							break outerloop;
-						}
+	private static boolean makePrime(int n) {
+		for (int i = 2; i <= n; i++) {
+			for (int j = 2; j <= n; j++) {
+				for (int k = 2; k <= n; k++) {
+					if ((!prime[i] && !prime[j] && !prime[k]) && i + j + k == n) {
+						sb.append(i + " " + j + " " + k + "\n");
+						return true;
 					}
 				}
 			}
-			// 3개의 소수로 이루어지지 않은 경우
-			if (cnt==0)
-				System.out.println(0);
+		}
+
+		return false;
+	}
+
+	private static void setPrime() {
+		prime[0] = prime[1] = true;
+
+		for (int i = 2; i * i <= 1000; i++) {
+			if (!prime[i]) {
+				for (int j = i + i; j <= 1000; j += i) {
+					prime[j] = true;
+				}
+			}
 		}
 	}
 }
