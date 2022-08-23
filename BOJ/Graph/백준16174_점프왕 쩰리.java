@@ -1,9 +1,8 @@
 package 백준.PS8월;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
+import 백준.PS8월.PS0823_16174.Node;
 
 public class PS0823_16174 {
 
@@ -31,12 +30,12 @@ public class PS0823_16174 {
     }
 
     public static void bfs() {
-        Queue<Node> q = new LinkedList<>();
+        Queue<백준.PS8월.PS0823_16174.Node> q = new LinkedList<>();
         visit[0][0] = true;
-        q.add(new Node(0, 0));
+        q.add(new 백준.PS8월.PS0823_16174.Node(0, 0));
 
         while (!q.isEmpty()) {
-            Node now = q.poll();
+            백준.PS8월.PS0823_16174.Node now = q.poll();
             int x = now.x;
             int y = now.y;
 
@@ -49,16 +48,16 @@ public class PS0823_16174 {
 
             for (int k = 0; k < 2; k++) {
                 int nx = x + dx[k] * value;
-                int ny = y + dy[k] & value;
+                int ny = y + dy[k] * value;
 
-                if (0 <= nx && nx < n && 0 <= ny && ny < n) {
+                if (0 <= nx && nx < n && 0 <= ny && ny < n && !visit[nx][ny]) {
                     visit[nx][ny] = true;
-                    q.add(new Node(nx, ny));
+                    q.add(new 백준.PS8월.PS0823_16174.Node(nx, ny));
                 }
             }
 
-            System.out.println("Hing");
         }
+        System.out.println("Hing");
     }
 
 
