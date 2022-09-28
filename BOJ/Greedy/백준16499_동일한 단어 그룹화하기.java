@@ -9,7 +9,7 @@ public class PS0925_16499 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Set<String> hs = new HashSet();
-        
+
         for (int i = 0; i < n; i++) {
             char[] input = br.readLine().toCharArray();
             Arrays.sort(input);
