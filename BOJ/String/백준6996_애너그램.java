@@ -15,21 +15,19 @@ public class PS1018_6996 {
         for (int i = 0; i < n; i++) {
             String[] split = br.readLine().split(" ");
 
-            char[] a = split[0].toCharArray();
-            char[] b = split[1].toCharArray();
+            String a = split[0];
+            String b = split[1];
 
-            if (a.length != b.length) {
-                sb.append(String.valueOf(a) + " & " + String.valueOf(b) + "are NOT anagrams" + "\n");
-                continue;
-            }
+            char[] aChar = a.toCharArray();
+            char[] bChar = b.toCharArray();
 
-            Arrays.sort(a);
-            Arrays.sort(b);
+            Arrays.sort(aChar);
+            Arrays.sort(bChar);
 
-            if (!String.valueOf(a).equals(String.valueOf(b))) {
-                sb.append(String.valueOf(a) + " & " + String.valueOf(b) + "are NOT anagrams" + "\n");
+            if (!Arrays.equals(aChar, bChar)) {
+                sb.append(a + " & " + b + " are NOT anagrams." + "\n");
             } else {
-                sb.append(String.valueOf(a) + " & " + String.valueOf(b) + "are anagrams" + "\n");
+                sb.append(a + " & " + b + " are anagrams." + "\n");
             }
         }
 
