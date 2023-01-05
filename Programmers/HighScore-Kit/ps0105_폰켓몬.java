@@ -18,7 +18,9 @@ public class ps0105_폰켓몬 {
                 hs.add(num);
             }
 
-            return hs.size() / 2;
+            int maxChoice = nums.length / 2;
+
+            return Math.min(hs.size(), maxChoice);
         }
     }
 }
