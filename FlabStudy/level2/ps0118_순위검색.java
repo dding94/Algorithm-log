@@ -30,74 +30,62 @@ public class ps0118_순위검색 {
     private static class Solution {
 
         static Map<String, List<Integer>> hm = new HashMap<>();
-        static String[] language = new String[]{"cpp", "java", "python", "-"};
-        static String[] job = new String[]{"backend", "frontend", "-"};
-        static String[] year = new String[]{"junior", "senior", "-"};
-        static String[] food = new String[]{"chicken", "pizza", "-"};
 
         public int[] solution(String[] info, String[] query) {
-            int[] answer = {};
-            List<Integer> answerList = new ArrayList<>();
-            makeMap();
 
-            for (String s : info) {
-                String[] split = s.split(" ");
-                String people = split[0] + split[1] + split[2] + split[3];
+            int[] answer = new int[query.length];
 
-                for (String key : hm.keySet()) {
-                    String[] splitKeys = key.split("-");
-                    int temp = splitKeys.length;
-                    int count = 0;
-                    for (String splitKey : splitKeys) {
-                        if (people.contains(splitKey)) {
-                            count++;
-                        }
-                    }
-
-                    if (temp == count) {
-                        hm.get(key).add(Integer.parseInt(split[4]));
-                    }
-
-                 }
-
+            //각 info 가 만들 수 있는 쿼리 전부 생성
+            for (int i = 0; i < info.length; i++) {
+                dfs("", 0, info[i].split(" "));
             }
 
+            //저장 된 점수 오름차순 정렬
+            for (List<Integer> list : hm.values()) {
+                Collections.sort(list);
+            }
 
+            int i = 0;
+            //이분탐색으로 점수를 찾지 않으면 시간초과가 난다.
             for (String q : query) {
                 String[] peopleInfo = q.split(" and ");
                 String[] foodAndScore = peopleInfo[3].split(" ");
 
                 String people = peopleInfo[0] + peopleInfo[1] + peopleInfo[2] + foodAndScore[0];
-                List<Integer> list = hm.get(people);
-                int count = 0;
-                for (Integer i : list) {
-                    if (i >= Integer.parseInt(foodAndScore[1])) {
-                        count++;
+
+                if (hm.containsKey(people)) {
+                    List<Integer> list = hm.get(people);
+
+                    int left = 0;
+                    int right = list.size() - 1;
+
+                    while (left <= right) {
+                        int mid = (left + right) / 2;
+
+                        if (list.get(mid) < Integer.parseInt(foodAndScore[1])) {
+                            left = mid + 1;
+                        } else {
+                            right = mid - 1;
+                        }
                     }
+                    answer[i] = list.size() - left;
                 }
-                answerList.add(count);
-            }
-
-            answer = new int[answerList.size()];
-
-            for (int i = 0; i < answerList.size(); i++) {
-                answer[i] = answerList.get(i);
+                i++;
             }
 
             return answer;
         }
 
-        static void makeMap() {
-            for (String lan : language) {
-                for (String job : job) {
-                    for (String year : year) {
-                        for (String food : food) {
-                            String make = lan + job + year + food;
-                            hm.put(make, new ArrayList<>());
-                        }
-                    }
-                }
+        private static void dfs(String key, int depth, String[] info) {
+            if (depth == 4) {
+                List<Integer> list = hm.getOrDefault(key, new ArrayList<>());
+                list.add(Integer.valueOf(info[4]));
+                hm.put(key, list);
+                return;
             }
+
+            dfs(key + "-", depth + 1, info);
+            dfs(key + info[depth], depth + 1, info);
         }
     }
 }
